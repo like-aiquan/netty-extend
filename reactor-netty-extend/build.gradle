@@ -1,0 +1,3 @@
+dependencies {
+	implementation 'io.projectreactor.netty:reactor-netty-http:1.0.22'
+}
