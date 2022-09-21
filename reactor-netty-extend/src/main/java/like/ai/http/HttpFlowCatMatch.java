@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import reactor.netty.http.client.HttpClient;
+import reactor.netty.resources.ConnectionProvider;
 
 /**
  * reactor netty http 请求刷羊了个羊次数 注: header 的 t 代表 jwt 信息，抓包即可
@@ -26,6 +27,13 @@ public class HttpFlowCatMatch {
 	}
 
 	static HttpClient getHttpClient() {
+
+		// ConnectionProvider provider = ConnectionProvider.builder("http")
+		//				.maxConnections(100)
+		//				.lifo()
+		//				.build();
+		//	return HttpClient.create(provider);
+
 		return HttpClient.create()
 				.baseUrl("https://cat-match.easygame2021.com")
 				.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 100)
