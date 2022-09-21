@@ -20,6 +20,7 @@ public class EchoServer {
 				if (message.endsWith("\n")) {
 					message = message.substring(0, message.length() - 2);
 				}
+				// 打印 message
 				System.out.println("message [" + message + "]");
 			});
 
