@@ -30,9 +30,9 @@ public class EchoNettyServer {
 	 */
 	public void action() throws InterruptedException {
 		// 用来接收进来的连接
-		EventLoopGroup bossGroup = new NioEventLoopGroup();
+		EventLoopGroup bossGroup = new NioEventLoopGroup(1);
 		// 用来处理已经被接收的连接，一旦bossGroup接收到连接，就会把连接信息注册到workerGroup上
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
+		EventLoopGroup workerGroup = new NioEventLoopGroup(4);
 
 		try {
 			// nio服务的启动类
