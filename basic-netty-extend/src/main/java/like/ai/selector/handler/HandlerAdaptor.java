@@ -6,10 +6,6 @@ import java.nio.channels.Selector;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import like.ai.selector.handler.AcceptEventHandler;
-import like.ai.selector.handler.EventHandler;
-import like.ai.selector.handler.ReadEventHandler;
-import like.ai.selector.handler.WriteEventHandler;
 
 /**
  * @author chenaiquan
