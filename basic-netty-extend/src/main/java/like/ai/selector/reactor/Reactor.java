@@ -1,6 +1,6 @@
 package like.ai.selector.reactor;
 
-import static like.ai.selector.reactor.HandlerAdaptor.adaptor;
+import static like.ai.selector.handler.HandlerAdaptor.adaptor;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
