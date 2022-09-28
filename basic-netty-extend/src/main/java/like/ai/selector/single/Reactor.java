@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * 单线程模型
+ *
  * @author chenaiquan
  */
 public class Reactor {

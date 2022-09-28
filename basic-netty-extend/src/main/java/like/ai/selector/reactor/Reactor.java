@@ -9,6 +9,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 
 /**
+ * 主从多线程模型
+ *
  * @author chenaiquan
  */
 public class Reactor {
