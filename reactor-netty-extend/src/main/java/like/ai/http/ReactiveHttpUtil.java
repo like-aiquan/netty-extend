@@ -94,7 +94,7 @@ public class ReactiveHttpUtil {
 	public static <T> T post(String baseUrl, String uri,
 			Map<String, Object> headers, Object body, Class<T> clazz, boolean async) {
 		String response = async ? asyncPost(baseUrl, uri, headers, body) : post(baseUrl, uri, headers, body);
-		return JsonUtil.read(clazz, response);
+		return clazz != null ? JsonUtil.read(clazz, response) : null;
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class ReactiveHttpUtil {
 	private static Consumer<HttpHeaders> postDefaultHeaders(String data) {
 		return header -> {
 			// post 请求一定要带上 "Content-Length" 否则 某些情况下会报错
-			header.add("Content-Length", data.getBytes().length);
+			header.add(com.google.common.net.HttpHeaders.CONTENT_LENGTH, data.getBytes().length);
 		};
 	}
 
@@ -178,7 +178,7 @@ public class ReactiveHttpUtil {
 
 	public static <T> T get(String baseUrl, String uri, Map<String, Object> headers, Class<T> clazz, boolean async) {
 		String response = async ? asyncGet(baseUrl, uri, headers) : get(baseUrl, uri, headers);
-		return JsonUtil.read(clazz, response);
+		return clazz != null ? JsonUtil.read(clazz, response) : null;
 	}
 
 	private static String get(String baseUrl, String uri, Map<String, Object> headers) {
@@ -201,7 +201,7 @@ public class ReactiveHttpUtil {
 
 	private static Consumer<? super HttpHeaders> buildHeaders(Map<String, Object> headers) {
 		return header -> {
-			header.add("Content-Type", "application/json");
+			header.add(com.google.common.net.HttpHeaders.CONTENT_TYPE, "application/json");
 			Optional.ofNullable(headers).orElse(new HashMap<>(0)).forEach(header::add);
 		};
 	}

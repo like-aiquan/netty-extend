@@ -27,7 +27,6 @@ public class HttpFlowCatMatch {
 	}
 
 	static HttpClient getHttpClient() {
-
 		// ConnectionProvider provider = ConnectionProvider.builder("http")
 		//				.maxConnections(100)
 		//				.lifo()
@@ -79,11 +78,17 @@ public class HttpFlowCatMatch {
 		@Override
 		public void run() {
 			try {
-				doGet();
+				// doGet();
+				reactiveGet();
 			}
 			catch (Exception e) {
 				System.out.println("error! " + e.getMessage());
 			}
+		}
+
+		private void reactiveGet() {
+			ReactiveHttpUtil.get("https://cat-match.easygame2021.com",
+					"sheep/v1/game/game_over?rank_score=1&rank_state=1&rank_time=1314&rank_role=1&skin=1", null);
 		}
 
 		private static void doGet() {
