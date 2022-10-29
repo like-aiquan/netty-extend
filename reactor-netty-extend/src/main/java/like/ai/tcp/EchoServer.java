@@ -2,7 +2,9 @@ package like.ai.tcp;
 
 
 import java.nio.charset.Charset;
+import java.util.Optional;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.netty.tcp.TcpServer;
 
 /**
@@ -10,16 +12,20 @@ import reactor.netty.tcp.TcpServer;
  */
 public class EchoServer {
 
+	private static final int port;
+
+	static {
+		port = Integer.parseInt(Optional.ofNullable(System.getProperty("server.port")).orElse("8011"));
+	}
+
 	public static void main(String[] args) {
 		TcpServer.create()
-				.port(8080)
+				.port(port)
 				.wiretap(true)
 				.handle((in, out) -> {
-					Flux<String> flux = in.receive().asString(Charset.defaultCharset());
-					// 订阅者必须大于 2 才开始订阅
-					flux = flux.publish().autoConnect(2);
+					Flux<String> flux = in.receive().asString(Charset.defaultCharset())
 					// 第一个订阅 去除 后置 换行符
-					flux.subscribe(message -> {
+					.doOnNext(message -> {
 						if (message.endsWith("\n")) {
 							message = message.substring(0, message.length() - 2);
 						}
@@ -27,7 +33,7 @@ public class EchoServer {
 						System.out.println("message [" + message + "]");
 					});
 					// 把请求的 message 响应给客户端  flux 的 第二次订阅
-					return out.sendString(flux.map(item -> item)).neverComplete();
+					return out.sendString(flux).neverComplete();
 				})
 				.bindNow()
 				.onDispose()
